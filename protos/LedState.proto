@@ -1,0 +1,14 @@
+
+syntax = "proto3";
+
+service Scanner {
+    rpc SendLedState (LedStateRequest) returns (LedStateReply);
+};
+
+message LedStateRequest {
+    string code = 1;
+};
+
+message LedStateReply {
+    string message = 1;
+};
