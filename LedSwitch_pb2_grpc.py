@@ -2,10 +2,10 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import LedState_pb2 as LedState__pb2
+import LedSwitch_pb2 as LedSwitch__pb2
 
 
-class ScannerStub(object):
+class LedSwitchStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -15,13 +15,13 @@ class ScannerStub(object):
             channel: A grpc.Channel.
         """
         self.SendLedState = channel.unary_unary(
-                '/Scanner/SendLedState',
-                request_serializer=LedState__pb2.LedStateRequest.SerializeToString,
-                response_deserializer=LedState__pb2.LedStateReply.FromString,
+                '/LedSwitch/SendLedState',
+                request_serializer=LedSwitch__pb2.LedSwitchRequest.SerializeToString,
+                response_deserializer=LedSwitch__pb2.LedSwitchReply.FromString,
                 )
 
 
-class ScannerServicer(object):
+class LedSwitchServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def SendLedState(self, request, context):
@@ -31,21 +31,21 @@ class ScannerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_ScannerServicer_to_server(servicer, server):
+def add_LedSwitchServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'SendLedState': grpc.unary_unary_rpc_method_handler(
                     servicer.SendLedState,
-                    request_deserializer=LedState__pb2.LedStateRequest.FromString,
-                    response_serializer=LedState__pb2.LedStateReply.SerializeToString,
+                    request_deserializer=LedSwitch__pb2.LedSwitchRequest.FromString,
+                    response_serializer=LedSwitch__pb2.LedSwitchReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'Scanner', rpc_method_handlers)
+            'LedSwitch', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class Scanner(object):
+class LedSwitch(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -59,8 +59,8 @@ class Scanner(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Scanner/SendLedState',
-            LedState__pb2.LedStateRequest.SerializeToString,
-            LedState__pb2.LedStateReply.FromString,
+        return grpc.experimental.unary_unary(request, target, '/LedSwitch/SendLedState',
+            LedSwitch__pb2.LedSwitchRequest.SerializeToString,
+            LedSwitch__pb2.LedSwitchReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

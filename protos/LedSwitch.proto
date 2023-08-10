@@ -1,0 +1,14 @@
+
+syntax = "proto3";
+
+service LedSwitch {
+    rpc SendLedState (LedSwitchRequest) returns (LedSwitchReply);
+};
+
+message LedSwitchRequest {
+    bool LedState = 1;
+};
+
+message LedSwitchReply {
+    string message = 1;
+};

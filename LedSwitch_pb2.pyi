@@ -4,13 +4,13 @@ from typing import ClassVar as _ClassVar, Optional as _Optional
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
-class LedStateRequest(_message.Message):
-    __slots__ = ["code"]
-    CODE_FIELD_NUMBER: _ClassVar[int]
-    code: str
-    def __init__(self, code: _Optional[str] = ...) -> None: ...
+class LedSwitchRequest(_message.Message):
+    __slots__ = ["LedState"]
+    LEDSTATE_FIELD_NUMBER: _ClassVar[int]
+    LedState: bool
+    def __init__(self, LedState: bool = ...) -> None: ...
 
-class LedStateReply(_message.Message):
+class LedSwitchReply(_message.Message):
     __slots__ = ["message"]
     MESSAGE_FIELD_NUMBER: _ClassVar[int]
     message: str
