@@ -35,19 +35,19 @@ def toggleState(channel):
     global led_on 
     led_on = not led_on
     run()
+    
+GPIO.add_event_detect(4, GPIO.RISING, callback=toggleState, bouncetime=300)
 
 def run():
     fullAddress = ModelYAML.address.ip + ':' + str(ModelYAML.address.port)
-    print(fullAddress)
-
-    GPIO.add_event_detect(4, GPIO.RISING, callback=toggleState, bouncetime=300)
     
     with grpc.insecure_channel(fullAddress) as channel:
         channel = grpc.insecure_channel(fullAddress)
-        stub = LedSwitch_pb2_grpc.LedSwtichStub(channel)
+        stub = LedSwitch_pb2_grpc.LedSwitchStub(channel)
         response = stub.SendLedState(LedSwitch_pb2.LedSwitchRequest(LedState = led_on))
   
 if __name__ == '__main__':
     ModelYAML = MakeModelFromYAML("config.yaml")
     logging.basicConfig()
-    run()
+    while (True):
+        pass
