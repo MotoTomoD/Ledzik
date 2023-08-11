@@ -17,7 +17,7 @@ def changeLedState(request):
 
 class LedSwitchServicer(LedSwitch_pb2_grpc.LedSwitchServicer):
     def SendLedState(self, request, context): 
-        changeLedState(request) #nie wiem czy moge dać requesta tutaj jak oargument, do sprawdzenia
+        changeLedState(request)
         return LedSwitch_pb2.LedSwitchReply(message='Zeskanowano: %s' % request.LedState)
 
 

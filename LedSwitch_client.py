@@ -4,16 +4,15 @@ import LedSwitch_pb2
 import grpc
 import logging
 
-from pydantic_yaml import parse_yaml_raw_as, to_yaml_str, to_yaml_file
+from pydantic_yaml import parse_yaml_raw_as
 from pydantic import BaseModel
 
 import time
 import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BCM) #wybor poprzez podawanie numeru GPIO a nie numeru pinu
 GPIO.setwarnings(False)
 
-button = 4
-i = 0
+button = 4 #GPIO z podlaczonym przyciskiem
 
 GPIO.setup(button, GPIO.IN, GPIO.PUD_UP)
 led_on = False
@@ -36,7 +35,7 @@ def toggleState(channel):
     led_on = not led_on
     run()
     
-GPIO.add_event_detect(4, GPIO.RISING, callback=toggleState, bouncetime=300)
+GPIO.add_event_detect(button, GPIO.RISING, callback=toggleState, bouncetime=300)
 
 def run():
     fullAddress = ModelYAML.address.ip + ':' + str(ModelYAML.address.port)
